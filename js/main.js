@@ -1,6 +1,7 @@
 onload = () => {
   const audio = new Audio('../las-mañanitas.mp3');
   audio.volume = 0.5;
+  audio.loop = true; // Agregar esta línea si quieres que se repita
   
   // Intentar reproducir automáticamente
   audio.play().catch(() => {
