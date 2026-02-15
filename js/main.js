@@ -1,21 +1,33 @@
-const title = document.querySelector('.title')
-const text = `Tengo algo para ti mamá`.split('')
+onload = () => {
+  const audio = new Audio('../las-mañanitas.mp3');
+  audio.volume = 0.5;
+  
+  // Intentar reproducir automáticamente
+  audio.play().catch(() => {
+    // Si falla, mostrar botón
+    const btn = document.createElement('button');
+    btn.textContent = '🎵 Reproducir música';
+    btn.style.cssText = 'position: fixed; top: 20px; right: 20px; padding: 10px 20px; cursor: pointer; z-index: 1000;';
+    btn.onclick = () => {
+      audio.play();
+      btn.remove();
+    };
+    document.body.appendChild(btn);
+  });
 
-title.style.display = 'flex'
-title.style.flexWrap = 'wrap'
-title.style.justifyContent = 'center'
-title.style.gap = '0.5rem'
-
-for (let index = 0; index < text.length; index++) {
-  if (text[index] !== ' ') {
-    title.innerHTML += `<span>${text[index]}</span>`
-  } else {
-    title.innerHTML += `<span style='width: 1rem'></span>`
-  }
-}
-
-const textElements = document.querySelectorAll('.title span');
-textElements.forEach((element) => {
-  const randomDelay = Math.random() * 3;
-  element.style.animationDelay = `${randomDelay}s`;
-});
+  const c = setTimeout(() => {
+    document.body.classList.remove("not-loaded");
+    const titles = ('Feliz cumpleaños!!').split('')
+    const titleElement = document.getElementById('title');
+    let index = 0;
+    function appendTitle() {
+      if (index < titles.length) {
+        titleElement.innerHTML += titles[index];
+        index++;
+        setTimeout(appendTitle, 300);
+      }
+    }
+    appendTitle();
+    clearTimeout(c);
+  }, 1000);
+};
