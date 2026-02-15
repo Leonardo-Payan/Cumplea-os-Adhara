@@ -1,21 +1,23 @@
-const title = document.querySelector('.title')
-const text = `Tengo algo para ti mamá`.split('')
+onload = () => {
+  // Reproducir música
+  const audio = new Audio('ruta/a/tu/musica.mp3');
+  audio.loop = true; // Para que se repita
+  audio.volume = 0.5; // Volumen al 50%
+  audio.play();
 
-title.style.display = 'flex'
-title.style.flexWrap = 'wrap'
-title.style.justifyContent = 'center'
-title.style.gap = '0.5rem'
-
-for (let index = 0; index < text.length; index++) {
-  if (text[index] !== ' ') {
-    title.innerHTML += `<span>${text[index]}</span>`
-  } else {
-    title.innerHTML += `<span style='width: 1rem'></span>`
-  }
-}
-
-const textElements = document.querySelectorAll('.title span');
-textElements.forEach((element) => {
-  const randomDelay = Math.random() * 3;
-  element.style.animationDelay = `${randomDelay}s`;
-});
+  const c = setTimeout(() => {
+    document.body.classList.remove("not-loaded");
+    const titles = ('Feliz cumpleaños!!').split('')
+    const titleElement = document.getElementById('title');
+    let index = 0;
+    function appendTitle() {
+      if (index < titles.length) {
+        titleElement.innerHTML += titles[index];
+        index++;
+        setTimeout(appendTitle, 300); // 300ms delay
+      }
+    }
+    appendTitle();
+    clearTimeout(c);
+  }, 1000);
+};
